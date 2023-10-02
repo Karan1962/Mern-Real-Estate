@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter ,Routes , Route} from "react-router-dom";
 import { SignUp,Login,Profile,Home,About } from "./Pages";
-import Navbar from './Components/Navbar';
+import { Navbar,Hero } from "./Components";
 const App = () => {
   return <BrowserRouter>
   <Navbar/>
