@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signItUp } from "../FormFunctions/signUp";
+import { logItUp } from "../FormFunctions/logItUp";
 
 const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
   const [userName, setUserName] = useState("");
@@ -24,6 +25,19 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
       navigate('/Login')
     }else{
       console.log('Registration Failed !')
+    }
+  }
+
+  const handleLogin = async (e) =>{
+    e.preventDefault();
+    const response = await logItUp(userName,passWord);
+    if(response === 201){
+      console.log('user exist')
+      navigate('/')
+    }else{
+      setUserName("")
+      setPassword("")
+      navigate('/Login')
     }
   }
   return (
@@ -70,10 +84,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
           ) : (
             <button
               type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("hello world");
-              }}
+              onClick={handleLogin}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
               LOGIN

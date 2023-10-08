@@ -13,12 +13,11 @@ const Cards = ({Type , Desc , Cards }) => {
       </div>
       <div className="max-w-6xl m-auto pt-2 px-2 flex flex-wrap  gap-5">
         {Cards.map((card) => {
-          console.log(card.path);
           return (
-            <Link to={card.path}>
+            <Link key={card.id} to={card.path}>
               <div
                 className="w-full sm:w-[320px] sm:h-[400px] bg-[#ffff] rounded-md  shadow-md shadow-zinc-400 "
-                key={card.id}
+                
               >
                 <div className="w-full h-[50%] flex overflow-hidden rounded-md rounded-b-none">
                   <img
