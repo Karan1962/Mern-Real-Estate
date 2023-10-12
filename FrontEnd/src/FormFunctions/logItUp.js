@@ -7,6 +7,6 @@ export const logItUp = async (userName, passWord) => {
     });
     return response.status;
   } catch (error) {
-    console.error("Error:", error);
+    return error.response.status
   }
 };

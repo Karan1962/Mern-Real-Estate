@@ -7,6 +7,8 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
   const [userName, setUserName] = useState("");
   const [passWord, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [userNameError, setUserNameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -14,35 +16,44 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
     navigate(`/${e}`);
   };
 
-  const handleSignUp = async (e) =>{
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const response = await signItUp(userName,passWord,email);
-    if(response === 201 ){
+    const response = await signItUp(userName, passWord, email);
+    if (response === 201) {
       setUserName("");
       setPassword("");
       setEmail("");
-      console.log('User registered successfully')
-      navigate('/Login')
-    }else{
-      console.log('Registration Failed !')
+      console.log("User registered successfully");
+      navigate("/Login");
+    } else {
+      console.log("Registration Failed !");
     }
-  }
+  };
 
-  const handleLogin = async (e) =>{
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await logItUp(userName,passWord);
-    if(response === 201){
-      console.log('user exist')
-      navigate('/')
-    }else{
-      setUserName("")
-      setPassword("")
-      navigate('/Login')
+    const response = await logItUp(userName, passWord);
+
+    if (response === 201) {
+      console.log("user exist");
+      navigate("/");
+    } else if (response === 404) {
+      if (response !== 401) {
+        setPasswordError(false);
+        setUserNameError(true);
+        console.log("invalid username");
+      }
+    } else if (response === 401) {
+      if (response !== 404) {
+        setUserNameError(false);
+        setPasswordError(true);
+        console.log("invalid password");
+      }
     }
-  }
+  };
   return (
     <>
-      <div className="flex justify-center gap-3 items-center w-full sm:max-w-xl flex-col m-auto h-[80vh]">
+      <div className="flex justify-center gap-3 items-center w-full sm:max-w-xl flex-col m-auto h-[100vh]">
         <h2 className="text-4xl font-bold text-gray-600">
           {Login ? "Sign Up" : "Login"}
         </h2>
@@ -73,6 +84,19 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full sm:w-[60%] m-auto  focus:outline-gray-200 rounded-md p-3"
           />
+          <p className="text-center">
+            {userNameError ? (
+              <span className="text-red-600 text-center">
+                 Invalid username 
+              </span>
+            ) : null}
+            {passwordError ? (
+              <span className="text-center text-red-600">
+                Invalid password 
+              </span>
+            ) : null}
+          </p>
+
           {Login ? (
             <button
               type="submit"

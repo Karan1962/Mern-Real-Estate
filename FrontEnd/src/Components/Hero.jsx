@@ -11,7 +11,7 @@ const Hero = () => {
         OnlyEstate will help you find your home fast, easy and comfortable.<br/>
         Our expert support are always available.
       </div>
-      <div className="text-indigo-800  font-bold hover:underline cursor-pointer">
+      <div className="text-indigo-800  font-bold hover:underline cursor-pointer w-fit">
         Let's Start Now...
       </div>
     </div>

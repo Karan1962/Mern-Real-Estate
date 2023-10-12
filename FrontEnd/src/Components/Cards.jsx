@@ -16,7 +16,7 @@ const Cards = ({Type , Desc , Cards }) => {
           return (
             <Link key={card.id} to={card.path}>
               <div
-                className="w-full sm:w-[320px] sm:h-[400px] bg-[#ffff] rounded-md  shadow-md shadow-zinc-400 "
+                className="w-full sm:w-[320px] sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
                 
               >
                 <div className="w-full h-[50%] flex overflow-hidden rounded-md rounded-b-none">
