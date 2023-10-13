@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use((err, req, res, next) => {
-  const code = err.status || "500";
+  const code = err.status || 500;
   const message = err.message || "invalid user information";
   const error = {
     status: code,
