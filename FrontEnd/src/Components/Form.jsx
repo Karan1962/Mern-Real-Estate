@@ -37,18 +37,16 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
     if (response === 201) {
       console.log("user exist");
       navigate("/");
-    } else if (response === 404) {
-      if (response !== 401) {
-        setPasswordError(false);
-        setUserNameError(true);
-        console.log("invalid username");
-      }
-    } else if (response === 401) {
-      if (response !== 404) {
-        setUserNameError(false);
-        setPasswordError(true);
-        console.log("invalid password");
-      }
+    }
+    if (response === 404) {
+      setPasswordError(false);
+      setUserNameError(true);
+      console.log("invalid username");
+    }
+    if (response === 401) {
+      setUserNameError(false);
+      setPasswordError(true);
+      console.log("invalid password");
     }
   };
   return (
@@ -86,14 +84,10 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
           />
           <p className="text-center">
             {userNameError ? (
-              <span className="text-red-600 text-center">
-                 Invalid username 
-              </span>
+              <span className="text-red-600 text-center">Invalid username</span>
             ) : null}
             {passwordError ? (
-              <span className="text-center text-red-600">
-                Invalid password 
-              </span>
+              <span className="text-center text-red-600">Invalid password</span>
             ) : null}
           </p>
 
