@@ -1,7 +1,7 @@
 import axios from "axios";
 export const logItUp = async (userName, passWord) => {
   try {
-    const response = await axios.post("/api/user", {
+    const response = await axios.post("/api/auth/login", {
       userName,
       password: passWord,
     });
