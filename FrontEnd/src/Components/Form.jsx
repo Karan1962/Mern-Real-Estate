@@ -9,6 +9,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
   const [email, setEmail] = useState("");
   const [userNameError, setUserNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,20 +19,25 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const response = await signItUp(userName, passWord, email);
+
     if (response === 201) {
       setUserName("");
       setPassword("");
       setEmail("");
+      setLoading(false);
       console.log("User registered successfully");
       navigate("/Login");
     } else {
+      setLoading(false);
       console.log("Registration Failed !");
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const response = await logItUp(userName, passWord);
 
     if (response === 201) {
@@ -42,8 +48,10 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
       setPasswordError(false);
       setUserNameError(true);
       console.log("invalid username");
+      setLoading(false);
     }
     if (response === 401) {
+      setLoading(false);
       setUserNameError(false);
       setPasswordError(true);
       console.log("invalid password");
@@ -93,19 +101,21 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
 
           {Login ? (
             <button
+              disabled={loading}
               type="submit"
               onClick={handleSignUp}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
-              SIGNUP
+              {loading ? "LOADING..." : "SIGN UP"}
             </button>
           ) : (
             <button
+              disabled={loading}
               type="submit"
               onClick={handleLogin}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
-              LOGIN
+              {loading ? "LOADING..." : "LOGIN"}
             </button>
           )}
 
