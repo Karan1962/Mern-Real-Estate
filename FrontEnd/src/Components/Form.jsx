@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signItUp } from "../FormFunctions/signUp";
 import { logItUp } from "../FormFunctions/logItUp";
+import { loading, noLoading } from "../Redux/userSlice";
+import { useDispatch , useSelector } from "react-redux";
 
 const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state)=>state.user.loading)
   const [userName, setUserName] = useState("");
   const [passWord, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [userNameError, setUserNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,25 +22,25 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(loading());
     const response = await signItUp(userName, passWord, email);
 
     if (response === 201) {
       setUserName("");
       setPassword("");
       setEmail("");
-      setLoading(false);
       console.log("User registered successfully");
+      dispatch(noLoading())
       navigate("/Login");
     } else {
-      setLoading(false);
+      dispatch(noLoading());
       console.log("Registration Failed !");
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    dispatch(loading());
     const response = await logItUp(userName, passWord);
 
     if (response === 201) {
@@ -48,10 +51,10 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
       setPasswordError(false);
       setUserNameError(true);
       console.log("invalid username");
-      setLoading(false);
+      dispatch(noLoading());
     }
     if (response === 401) {
-      setLoading(false);
+      dispatch(noLoading());
       setUserNameError(false);
       setPasswordError(true);
       console.log("invalid password");
@@ -101,21 +104,21 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
 
           {Login ? (
             <button
-              disabled={loading}
+              disabled={user}
               type="submit"
               onClick={handleSignUp}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
-              {loading ? "LOADING..." : "SIGN UP"}
+              {user? "LOADING..." : "SIGN UP"}
             </button>
           ) : (
             <button
-              disabled={loading}
+              disabled={user}
               type="submit"
               onClick={handleLogin}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
-              {loading ? "LOADING..." : "LOGIN"}
+              {user ? "LOADING..." : "LOGIN"}
             </button>
           )}
 
