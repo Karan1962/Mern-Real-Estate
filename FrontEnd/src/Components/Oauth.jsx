@@ -4,9 +4,11 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { currentUser } from "../Redux/userSlice.js";
+import { useNavigate } from "react-router-dom";
 
 const Oauth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const signInWithGoogle = async () => {
     const auth = getAuth(app); // 'app' is the Firebase app you initialized
 
@@ -20,9 +22,13 @@ const Oauth = () => {
         email: user.email,
         avatar: user.photoURL,
       });
-      console.log(res.data)
-
+      if (res.status !== 201) {
+        console.log(res);
+        navigate("/Login");
+      }
       dispatch(currentUser(res.data));
+      navigate('/')
+
       // Handle the signed-in user, e.g., update your UI
     } catch (error) {
       console.error("Google Sign-In Error", error);
