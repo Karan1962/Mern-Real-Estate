@@ -8,6 +8,7 @@ import {
   userNameError,
   passwordError,
   noError,
+  currentUser,
 } from "../Redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Oauth from "./Oauth";
@@ -49,7 +50,8 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
     dispatch(loading());
     const response = await logItUp(userName, passWord);
     if (response.status === 201) {
-      console.log("user exist");
+      console.log("user exist :",response.data)
+      dispatch(currentUser(response.data))
       dispatch(noLoading());
       dispatch(noError())
       navigate("/");
