@@ -5,7 +5,7 @@ export const logItUp = async (userName, passWord) => {
       userName,
       password: passWord,
     });
-    return response.status;
+    return response;
   } catch (error) {
     return error.response.status
   }

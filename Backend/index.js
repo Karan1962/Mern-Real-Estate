@@ -20,10 +20,10 @@ app.use((err, req, res, next) => {
   const message = err.message || "invalid user information";
   const error = {
     status: code,
-    message: message
+    message: message,
   };
   console.log(error);
-  return res.status(error.status).json(error);
+  return res.json(error);
 });
 
 main()

@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signItUp } from "../FormFunctions/signUp";
 import { logItUp } from "../FormFunctions/logItUp";
-import { loading, noLoading } from "../Redux/userSlice";
-import { useDispatch , useSelector } from "react-redux";
+import {
+  loading,
+  noLoading,
+  userNameError,
+  passwordError,
+  noError,
+} from "../Redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Oauth from "./Oauth";
 
 const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state)=>state.user.loading)
+  const user = useSelector((state) => state.user);
   const [userName, setUserName] = useState("");
   const [passWord, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [userNameError, setUserNameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,7 +35,8 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
       setPassword("");
       setEmail("");
       console.log("User registered successfully");
-      dispatch(noLoading())
+      dispatch(noLoading());
+      dispatch(noError());
       navigate("/Login");
     } else {
       dispatch(noLoading());
@@ -42,22 +48,21 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
     e.preventDefault();
     dispatch(loading());
     const response = await logItUp(userName, passWord);
-
-    if (response === 201) {
+    if (response.status === 201) {
       console.log("user exist");
+      dispatch(noLoading());
+      dispatch(noError())
       navigate("/");
     }
-    if (response === 404) {
-      setPasswordError(false);
-      setUserNameError(true);
-      console.log("invalid username");
+    if (response.data.status === 404) {
+      dispatch(userNameError());
+      console.log(response.data);
       dispatch(noLoading());
     }
-    if (response === 401) {
+    if (response.data.status === 401) {
       dispatch(noLoading());
-      setUserNameError(false);
-      setPasswordError(true);
-      console.log("invalid password");
+      dispatch(passwordError());
+      console.log(response.data);
     }
   };
   return (
@@ -94,40 +99,35 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
             className="w-full sm:w-[60%] m-auto  focus:outline-gray-200 rounded-md p-3"
           />
           <p className="text-center">
-            {userNameError ? (
+            {user.userNameError ? (
               <span className="text-red-600 text-center">Invalid username</span>
             ) : null}
-            {passwordError ? (
+            {user.passwordError ? (
               <span className="text-center text-red-600">Invalid password</span>
             ) : null}
           </p>
 
           {Login ? (
             <button
-              disabled={user}
+              disabled={user.loading}
               type="submit"
               onClick={handleSignUp}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
-              {user? "LOADING..." : "SIGN UP"}
+              {user.loading ? "LOADING..." : "SIGN UP"}
             </button>
           ) : (
             <button
-              disabled={user}
+              disabled={user.loading}
               type="submit"
               onClick={handleLogin}
               className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
             >
-              {user ? "LOADING..." : "LOGIN"}
+              {user.loading ? "LOADING..." : "LOGIN"}
             </button>
           )}
 
-          <button
-            type="submit"
-            className="w-full sm:w-[60%] p-3 text-white bg-red-700 m-auto rounded-md font-bold hover:bg-red-600"
-          >
-            CONTINUE WITH GOOGLE
-          </button>
+          <Oauth />
         </form>
         {Login ? (
           <div className="flex flex-col sm:flex-row sm:gap-3">
