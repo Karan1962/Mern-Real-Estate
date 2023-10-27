@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userRoute from "./routes/user.route.js";
+import googleRoute from "./routes/google.route.js";
 import authRoute from "./routes/auth.route.js";
 // import cors from "cors";
 
@@ -13,7 +13,7 @@ const app = express();
 // app.use(cors(corsOptions));
 dotenv.config();
 app.use(express.json());
-app.use("/api/user", userRoute);
+app.use("/api/google", googleRoute);
 app.use("/api/auth", authRoute);
 app.use((err, req, res, next) => {
   const code = err.status || 500;

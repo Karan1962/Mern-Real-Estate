@@ -12,7 +12,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     currentUser: (state , action) =>{
-      state.currentuser = action.payload
+      state.currentUser = action.payload
     },
     loading: (state) => {
       state.loading = true;
