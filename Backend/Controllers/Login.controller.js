@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import User from "../Models/User.model.js";
 import jwt from "jsonwebtoken";
-import { errorHandler } from "../errorhandler/errorHandler.js";
+import { errorHandler } from "../utils/errorHandler.js";
 
 export const loginAuth = async (req, res, next) => {
   const { userName, password } = req.body;

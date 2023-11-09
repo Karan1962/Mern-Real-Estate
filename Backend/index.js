@@ -2,19 +2,24 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import googleRoute from "./routes/google.route.js";
+import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
-// import cors from "cors";
+import cookieParser from "cookie-parser";
 
-// const corsOptions = {
-//   origin: "http://localhost:5173", // Replace with your frontend's actual URL
-//   credentials: true, // Enable sending cookies with CORS requests if needed
-// };
 const app = express();
-// app.use(cors(corsOptions));
+
 dotenv.config();
+
 app.use(express.json());
+
+app.use(cookieParser());
+
 app.use("/api/google", googleRoute);
+
 app.use("/api/auth", authRoute);
+
+app.use("/api/user", userRoute);
+
 app.use((err, req, res, next) => {
   const code = err.status || 500;
   const message = err.message || "invalid user information";
