@@ -13,8 +13,7 @@ import { app } from "../firebase";
 
 const Profile = () => {
   const fileRef = useRef(null);
-  const { currentUser} = useSelector((state) => state.user);
-  console.log(currentUser)
+  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
@@ -64,6 +63,7 @@ const Profile = () => {
         userName: formData.userName,
         password: formData.password,
         email: formData.email,
+        avatar: formData.avatar,
       });
       dispatch(updateCurrentUser(response.data));
     } catch (err) {
@@ -86,12 +86,14 @@ const Profile = () => {
           className="rounded-full w-14 object-cover m-auto cursor-pointer"
           src={formData.avatar || currentUser.avatar}
           alt="avatar"
+          id="avatar"
+          onChange={handleChange}
         />
         <p>
           {fileUploadError ? (
             <span className="text-red-700">Error Image Upload !</span>
           ) : filePerc > 0 && filePerc < 100 ? (
-            <span className="text-lime-300">{`Uploading ${filePerc}`}</span>
+            <span className="text-lime-300">{`Uploading ${filePerc} % Done`}</span>
           ) : filePerc === 100 ? (
             <span className="text-lime-300">Image Successfully Uploaded!</span>
           ) : null}
