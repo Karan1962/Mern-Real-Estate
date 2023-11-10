@@ -2,6 +2,7 @@ import User from "../Models/User.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import bcryptjs from "bcryptjs";
 export const updateUser = async (req, res, next) => {
+  console.log(req.body)
   if (req.user.id !== req.params.id)
     return next(
       errorHandler(401, "Bad request kindly log into your own account")
@@ -22,8 +23,10 @@ export const updateUser = async (req, res, next) => {
       },
       { new: true }
     );
+    
     const { password, ...rest } = updatedUser._doc;
     res.status(200).json(rest);
+    
   } catch (error) {
     next(error)
   }

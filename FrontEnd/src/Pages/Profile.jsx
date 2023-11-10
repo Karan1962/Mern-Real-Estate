@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCurrentUser } from "../Redux/userSlice";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+
 import { app } from "../firebase";
 
 const Profile = () => {
   const fileRef = useRef(null);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser} = useSelector((state) => state.user);
+  console.log(currentUser)
+  const dispatch = useDispatch();
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
@@ -47,6 +52,24 @@ const Profile = () => {
       }
     );
   };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`/api/user/update/${currentUser._id}`, {
+        userName: formData.userName,
+        password: formData.password,
+        email: formData.email,
+      });
+      dispatch(updateCurrentUser(response.data));
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
     <>
       <div className="pt-16 max-w-lg m-auto">
@@ -61,7 +84,7 @@ const Profile = () => {
         <img
           onClick={() => fileRef.current.click()}
           className="rounded-full w-14 object-cover m-auto cursor-pointer"
-          src={formData.avatar||currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           alt="avatar"
         />
         <p>
@@ -77,15 +100,30 @@ const Profile = () => {
           <input
             className="p-3 rounded-lg"
             placeholder="username"
+            id="userName"
             type="text"
+            defaultValue={currentUser.userName}
+            onChange={handleChange}
           />
-          <input className="p-3 rounded-lg" placeholder="email" type="text" />
+          <input
+            className="p-3 rounded-lg"
+            id="email"
+            placeholder="email"
+            type="text"
+            defaultValue={currentUser.email}
+            onChange={handleChange}
+          />
           <input
             className="p-3 rounded-lg"
             placeholder="password"
-            type="text"
+            type="password"
+            id="password"
+            onChange={handleChange}
           />
-          <button className="p-3 rounded-lg bg-indigo-900 font-semibold text-white hover:bg-indigo-800">
+          <button
+            onClick={handleSubmit}
+            className="p-3 rounded-lg bg-indigo-900 font-semibold text-white hover:bg-indigo-800"
+          >
             UPDATE
           </button>
         </form>
