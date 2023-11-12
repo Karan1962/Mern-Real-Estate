@@ -5,6 +5,7 @@ import {
   updateCurrentUser,
   updateFailure,
   successUpdate,
+  deleteSuccess
 } from "../Redux/userSlice";
 import {
   getDownloadURL,
@@ -90,7 +91,34 @@ const Profile = () => {
     } catch (err) {
       dispatch(updateFailure(err.message));
     }
-  };
+    
+  }
+  
+  const handleDelete = async ()=>{
+   
+    try{
+      const response = await axios.delete(`/api/user/delete/${currentUser._id}`)
+      dispatch(deleteSuccess())
+      console.log(response.data)
+      
+    }catch(error){
+      console.log(error.message)
+    }
+   
+  }
+
+  const handleSignOut = async ()=>{
+    try{
+      const response = await axios.get(`/api/auth/signout`)
+      dispatch(deleteSuccess())
+
+    }catch(error){
+      console.log(error.message)
+    }
+    
+
+  }
+  ;
   return (
     <>
       <div className="pt-16 max-w-lg m-auto">
@@ -151,10 +179,10 @@ const Profile = () => {
           </button>
         </form>
         <div className="flex justify-between pt-4">
-          <span className="text-red-600  font-medium cursor-pointer">
+          <span onClick={handleDelete} className="text-red-600  font-medium cursor-pointer">
             Delete Account
           </span>
-          <span className="text-red-600 font-medium cursor-pointer">
+          <span onClick={handleSignOut} className="text-red-600 font-medium cursor-pointer">
             Sign Out
           </span>
         </div>
