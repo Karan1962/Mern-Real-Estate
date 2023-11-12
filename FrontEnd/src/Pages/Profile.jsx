@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCurrentUser } from "../Redux/userSlice";
+import {
+  updateCurrentUser,
+  updateFailure,
+  successUpdate,
+} from "../Redux/userSlice";
 import {
   getDownloadURL,
   getStorage,
@@ -13,7 +17,9 @@ import { app } from "../firebase";
 
 const Profile = () => {
   const fileRef = useRef(null);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error, updateSuccess } = useSelector(
+    (state) => state.user
+  );
   const dispatch = useDispatch();
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
@@ -65,9 +71,24 @@ const Profile = () => {
         email: formData.email,
         avatar: formData.avatar,
       });
-      dispatch(updateCurrentUser(response.data));
+      const data = response.data;
+
+      console.log(data);
+      if (data.status && data.status !== 200 && data.status !== 500) {
+        dispatch(updateFailure(data.message));
+        return;
+      }
+
+      if (data.status && data.status === 500){
+        dispatch(updateFailure("User already taken !"))
+        return;
+      }
+
+      dispatch(updateCurrentUser(data));
+      console.log(currentUser);
+      dispatch(successUpdate());
     } catch (err) {
-      console.log(err.message);
+      dispatch(updateFailure(err.message));
     }
   };
   return (
@@ -137,6 +158,10 @@ const Profile = () => {
             Sign Out
           </span>
         </div>
+        {error ? <p className="text-red-700">{error}</p> : null}
+        {updateSuccess ? (
+          <p className="text-green-500">User Updated Successfully</p>
+        ) : null}
       </div>
     </>
   );

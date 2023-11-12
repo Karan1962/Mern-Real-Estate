@@ -5,6 +5,8 @@ const initialState = {
   loading: false,
   passwordError: false,
   userNameError: false,
+  error: null,
+  updateSuccess: null,
 };
 
 export const userSlice = createSlice({
@@ -35,6 +37,14 @@ export const userSlice = createSlice({
       state.userNameError = false;
       state.passwordError = false;
     },
+    updateFailure: (state, action) => {
+      state.error = action.payload;
+      state.updateSuccess= false;
+    },
+    successUpdate: (state) => {
+      state.updateSuccess = true;
+      state.error = null;
+    },
   },
 });
 
@@ -46,7 +56,9 @@ export const {
   passwordError,
   noError,
   currentUser,
-  updateCurrentUser
+  updateCurrentUser,
+  updateFailure,
+  successUpdate,
 } = userSlice.actions;
 
 export default userSlice.reducer;
