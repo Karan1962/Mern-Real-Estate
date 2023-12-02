@@ -29,6 +29,7 @@ const Profile = () => {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+  const [listings, setListings] = useState([]);
   console.log(formData);
   console.log(filePerc);
   console.log(fileUploadError);
@@ -119,6 +120,21 @@ const Profile = () => {
       console.log(error.message);
     }
   };
+
+  const getListings = async () => {
+    try {
+      const res = await axios.get(
+        `/api/listing/getListings/${currentUser._id}`
+      );
+
+      const listings = res.data;
+      console.log(listings);
+
+      setListings(listings);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
     <>
       <div className="pt-16 p-2 max-w-lg m-auto">
@@ -198,10 +214,46 @@ const Profile = () => {
             Sign Out
           </span>
         </div>
+        <div className="text-center">
+          <button onClick={getListings} className="text-green-500">
+            Show Listings
+          </button>
+        </div>
         {error ? <p className="text-red-700">{error}</p> : null}
         {updateSuccess ? (
           <p className="text-green-500">User Updated Successfully</p>
         ) : null}
+        {listings.length>0 && (
+          <div className="text-blue-950 font-bold text-2xl text-center p-3">
+            Your Listings
+          </div>
+        )}
+
+        {listings &&
+          listings.length > 0 &&
+          listings.map((listing) => {
+            return (
+              <div
+                key={listing._id}
+                className="border-gray-200 shadow-sm border-[2px] rounded-md flex justify-between items-center p-3 mb-3"
+              >
+                <img
+                  width={60}
+                  height={60}
+                  className="object-cover"
+                  src={listing.imageUrls[0]}
+                  alt="listingimg"
+                />
+                <div>
+                  <p className="text-blue-950 text-lg font-semibold">{listing.name}</p>
+                </div>
+                <div className="flex flex-col">
+                  <button className="text-red-500">Delete</button>
+                  <button className="text-green-500">Edit</button>
+                </div>
+              </div>
+            );
+          })}
       </div>
     </>
   );
