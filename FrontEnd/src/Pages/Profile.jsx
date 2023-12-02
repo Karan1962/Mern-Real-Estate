@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import {
   updateCurrentUser,
   updateFailure,
   successUpdate,
-  deleteSuccess
+  deleteSuccess,
+  defaultState,
 } from "../Redux/userSlice";
 import {
   getDownloadURL,
@@ -17,6 +19,7 @@ import {
 import { app } from "../firebase";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const fileRef = useRef(null);
   const { currentUser, error, updateSuccess } = useSelector(
     (state) => state.user
@@ -80,48 +83,45 @@ const Profile = () => {
         return;
       }
 
-      if (data.status && data.status === 500){
-        dispatch(updateFailure("User already taken !"))
+      if (data.status && data.status === 500) {
+        dispatch(updateFailure("User already exist !"));
         return;
       }
 
       dispatch(updateCurrentUser(data));
       console.log(currentUser);
       dispatch(successUpdate());
+      setTimeout(() => {
+        dispatch(defaultState());
+      }, 3000);
     } catch (err) {
       dispatch(updateFailure(err.message));
     }
-    
-  }
-  
-  const handleDelete = async ()=>{
-   
-    try{
-      const response = await axios.delete(`/api/user/delete/${currentUser._id}`)
-      dispatch(deleteSuccess())
-      console.log(response.data)
-      
-    }catch(error){
-      console.log(error.message)
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `/api/user/delete/${currentUser._id}`
+      );
+      dispatch(deleteSuccess());
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.message);
     }
-   
-  }
+  };
 
-  const handleSignOut = async ()=>{
-    try{
-      const response = await axios.get(`/api/auth/signout`)
-      dispatch(deleteSuccess())
-
-    }catch(error){
-      console.log(error.message)
+  const handleSignOut = async () => {
+    try {
+      const response = await axios.get(`/api/auth/signout`);
+      dispatch(deleteSuccess());
+    } catch (error) {
+      console.log(error.message);
     }
-    
-
-  }
-  ;
+  };
   return (
     <>
-      <div className="pt-16 max-w-lg m-auto">
+      <div className="pt-16 p-2 max-w-lg m-auto">
         <h1 className="text-3xl font-bold text-center py-4">Profile</h1>
         <input
           onChange={(e) => setFile(e.target.files[0])}
@@ -177,12 +177,24 @@ const Profile = () => {
           >
             UPDATE
           </button>
+          <button
+            onClick={() => navigate("/Listing")}
+            className="p-3 rounded-lg bg-green-800 font-semibold text-white hover:bg-green-700"
+          >
+            CREATE LISTING
+          </button>
         </form>
         <div className="flex justify-between pt-4">
-          <span onClick={handleDelete} className="text-red-600  font-medium cursor-pointer">
+          <span
+            onClick={handleDelete}
+            className="text-red-600  font-medium cursor-pointer"
+          >
             Delete Account
           </span>
-          <span onClick={handleSignOut} className="text-red-600 font-medium cursor-pointer">
+          <span
+            onClick={handleSignOut}
+            className="text-red-600 font-medium cursor-pointer"
+          >
             Sign Out
           </span>
         </div>

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import googleRoute from "./routes/google.route.js";
 import userRoute from "./routes/user.route.js";
 import authRoute from "./routes/auth.route.js";
+import listingRoute from "./routes/listing.route.js"
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -19,6 +20,8 @@ app.use("/api/google", googleRoute);
 app.use("/api/auth", authRoute);
 
 app.use("/api/user", userRoute);
+
+app.use("/api/listing",listingRoute);
 
 app.use((err, req, res, next) => {
   const code = err.status || 500;

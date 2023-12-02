@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SignUp, Login, Profile, Home, About } from "./Pages";
-import { Navbar ,PrivateProfile} from "./Components";
+import { Navbar, PrivateProfile } from "./Components";
 import {
   Cloud,
   Cottage,
@@ -9,6 +9,7 @@ import {
   TrankilLakeside,
 } from "./Components/places/index";
 import "./App.css";
+import Listing from "./Pages/Listing";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/About" element={<About />} />
         <Route element={<PrivateProfile />}>
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/Listing" element={<Listing />} />       
         </Route>
 
         <Route path="/Cloud" element={<Cloud />} />
