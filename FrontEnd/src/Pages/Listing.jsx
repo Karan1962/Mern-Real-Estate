@@ -11,6 +11,8 @@ import { app } from "../firebase";
 import { useSelector } from "react-redux";
 
 export default function Listing() {
+  //  ---- State Section ----
+
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -32,6 +34,10 @@ export default function Listing() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+
+  //  --- Functions Section ----
+
+  // ----  Checks all the Image uploading conditions then invokes storeImage function
 
   const handleImageSubmit = async (e) => {
     if (files.length == 0) {
@@ -64,6 +70,8 @@ export default function Listing() {
     }
   };
 
+  // ---- Stores Uploaded Images in Firebase Storage -----
+
   const storeImage = async (file) => {
     return new Promise((res, rej) => {
       const storage = getStorage(app);
@@ -88,8 +96,10 @@ export default function Listing() {
       );
       setError(false)
     });
-    
-  };
+    };
+
+  // --- Handles Image deletion of uploaded Images.
+
   const handleImageRemove = (i) => {
     setFormData({
       ...formData,
@@ -98,6 +108,9 @@ export default function Listing() {
       }),
     });
   };
+
+  //  --- This function tracks changes in listing information like Name, address , beds ... etc. in form of states.
+
   const handleChange = (e) => {
     if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({
@@ -128,6 +141,8 @@ export default function Listing() {
       });
     }
   };
+
+  // ---- This function works when user creates a listing ----
 
   const handleSubmit = async (e) => {
     e.preventDefault();

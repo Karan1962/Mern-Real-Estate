@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -223,7 +223,7 @@ const Profile = () => {
         {updateSuccess ? (
           <p className="text-green-500">User Updated Successfully</p>
         ) : null}
-        {listings.length>0 && (
+        {listings.length > 0 && (
           <div className="text-blue-950 font-bold text-2xl text-center p-3">
             Your Listings
           </div>
@@ -233,7 +233,8 @@ const Profile = () => {
           listings.length > 0 &&
           listings.map((listing) => {
             return (
-              <div
+              <Link
+                to={listing._id}
                 key={listing._id}
                 className="border-gray-200 shadow-sm border-[2px] rounded-md flex justify-between items-center p-3 mb-3"
               >
@@ -244,14 +245,20 @@ const Profile = () => {
                   src={listing.imageUrls[0]}
                   alt="listingimg"
                 />
-                <div>
-                  <p className="text-blue-950 text-lg font-semibold">{listing.name}</p>
-                </div>
+                <Link to={listing._id}>
+                  <p className="text-blue-950 text-lg font-semibold cursor-pointer hover:underline">
+                    {listing.name}
+                  </p>
+                </Link>
                 <div className="flex flex-col">
-                  <button className="text-red-500">Delete</button>
-                  <button className="text-green-500">Edit</button>
+                  <button className="text-red-500 hover:underline">
+                    Delete
+                  </button>
+                  <button className="text-green-500 hover:underline">
+                    Edit
+                  </button>
                 </div>
-              </div>
+              </Link>
             );
           })}
       </div>
