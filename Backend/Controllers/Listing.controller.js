@@ -44,7 +44,7 @@ export const deleteListing = async (req, res, next) => {
 };
 
 export const updateListing = async (req, res, next) => {
-  console.log(req.params)
+  console.log(req.params);
   const listing = await Listing.findById(req.params.id);
 
   if (!listing) return next(errorHandler(404, "listing not found!"));
@@ -70,6 +70,54 @@ export const getUpdateListing = async (req, res, next) => {
     const updateListing = await Listing.findById(req.params.id);
     if (!updateListing) return next(errorHandler(404, "listing not found"));
     res.status(201).json(updateListing);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getFilterListing = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const sort = req.query.sort || "Created At";
+    const searchTerm = req.query.searchTerm || "";
+    const order = req.query.order || "desc";
+
+    let offer = req.query.offer;
+    let furnished = req.query.furnished;
+    let parking = req.query.parking;
+    let type = req.query.type;
+
+    if (offer === undefined || offer === "false") {
+      offer = { $in: [true, false] };
+    }
+
+    if (furnished === undefined || furnished === "false") {
+      furnished = { $in: [true, false] };
+    }
+
+    if (parking === undefined || parking === 'false') {
+      parking = { $in: [true, false] };
+    }
+
+    if (type === undefined || type === 'all') {
+      type = { $in: ['rent', 'sale'] };
+    }
+    // furnished,
+    const listings = await Listing.find({
+      name: { $regex: searchTerm, $options: 'i'},
+      offer,
+      type,
+      furnished,
+      parking,
+    })
+      .sort({
+        [sort]: order,
+      })
+      .limit(limit)
+      .skip(startIndex);
+
+    res.status(201).json(listings);
   } catch (err) {
     next(err);
   }

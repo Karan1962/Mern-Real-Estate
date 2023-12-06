@@ -50,6 +50,10 @@ const listingSchema = new mongoose.Schema({
         type:String,
         requried:true
     },
+    furnished:{
+        type:Boolean,
+        required:true
+    }
 },{timestamps:true})
 
 const Listing = mongoose.model('Listing',listingSchema);
