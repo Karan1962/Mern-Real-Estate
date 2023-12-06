@@ -262,7 +262,7 @@ const Profile = () => {
                   />
                 </Link>
 
-                <Link to={listing._id}>
+                <Link to={`/SpecificListing/${listing._id}`}>
                   <p className="text-blue-950 text-lg font-semibold cursor-pointer hover:underline">
                     {listing.name}
                   </p>
