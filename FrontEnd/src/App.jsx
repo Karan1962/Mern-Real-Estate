@@ -10,6 +10,8 @@ import {
 } from "./Components/places/index";
 import "./App.css";
 import Listing from "./Pages/Listing";
+import ListingUpdate from "./Components/ListingUpdate";
+import SpecificListing from "./Pages/SpecificListing";
 
 const App = () => {
   return (
@@ -20,9 +22,11 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<SignUp />} />
         <Route path="/About" element={<About />} />
+        <Route path="/SpecificListing/:listingId" element={<SpecificListing />} />
         <Route element={<PrivateProfile />}>
           <Route path="/Profile" element={<Profile />} />
-          <Route path="/Listing" element={<Listing />} />       
+          <Route path="/Listing" element={<Listing />} />
+          <Route path="/Update-Listing/:id" element={<ListingUpdate />} />
         </Route>
 
         <Route path="/Cloud" element={<Cloud />} />

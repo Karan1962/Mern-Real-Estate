@@ -135,6 +135,20 @@ const Profile = () => {
       console.log(err.message);
     }
   };
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await axios.delete(`/api/listing/delete/${listingId}`);
+      const data = res.data;
+      console.log(data);
+
+      const updatedListings = listings.filter((listing) => {
+        return listing._id !== listingId;
+      });
+      setListings(updatedListings);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="pt-16 p-2 max-w-lg m-auto">
@@ -233,32 +247,40 @@ const Profile = () => {
           listings.length > 0 &&
           listings.map((listing) => {
             return (
-              <Link
+              <div
                 to={listing._id}
                 key={listing._id}
                 className="border-gray-200 shadow-sm border-[2px] rounded-md flex justify-between items-center p-3 mb-3"
               >
-                <img
-                  width={60}
-                  height={60}
-                  className="object-cover"
-                  src={listing.imageUrls[0]}
-                  alt="listingimg"
-                />
+                <Link to={`/SpecificListing/${listing._id}`}>
+                  <img
+                    width={60}
+                    height={60}
+                    className="object-cover"
+                    src={listing.imageUrls[0]}
+                    alt="listingimg"
+                  />
+                </Link>
+
                 <Link to={listing._id}>
                   <p className="text-blue-950 text-lg font-semibold cursor-pointer hover:underline">
                     {listing.name}
                   </p>
                 </Link>
                 <div className="flex flex-col">
-                  <button className="text-red-500 hover:underline">
+                  <button
+                    onClick={() => handleListingDelete(listing._id)}
+                    className="text-red-500 hover:underline"
+                  >
                     Delete
                   </button>
-                  <button className="text-green-500 hover:underline">
-                    Edit
-                  </button>
+                  <Link to={`/update-listing/${listing._id}`}>
+                    <button className="text-green-500 hover:underline">
+                      Edit
+                    </button>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             );
           })}
       </div>
