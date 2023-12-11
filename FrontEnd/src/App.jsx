@@ -12,6 +12,7 @@ import "./App.css";
 import Listing from "./Pages/Listing";
 import ListingUpdate from "./Components/ListingUpdate";
 import SpecificListing from "./Pages/SpecificListing";
+import Search from "./Components/Search";
 
 const App = () => {
   return (
@@ -22,13 +23,16 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<SignUp />} />
         <Route path="/About" element={<About />} />
-        <Route path="/SpecificListing/:listingId" element={<SpecificListing />} />
+        <Route
+          path="/SpecificListing/:listingId"
+          element={<SpecificListing />}
+        />
         <Route element={<PrivateProfile />}>
           <Route path="/Profile" element={<Profile />} />
           <Route path="/Listing" element={<Listing />} />
           <Route path="/Update-Listing/:id" element={<ListingUpdate />} />
         </Route>
-
+        <Route path="/Search" element={<Search />} />
         <Route path="/Cloud" element={<Cloud />} />
         <Route path="/Cottage" element={<Cottage />} />
         <Route path="/Luxury" element={<Luxury />} />

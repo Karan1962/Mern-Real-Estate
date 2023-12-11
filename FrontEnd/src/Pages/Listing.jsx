@@ -163,7 +163,7 @@ export default function Listing() {
         setError(res.data.message);
       }
 
-      navigate(`/listing/${res.data._id}`);
+      navigate(`/SpecificListing/${res.data._id}`);
     } catch (error) {
       setError(error.message);
       setLoading(false);

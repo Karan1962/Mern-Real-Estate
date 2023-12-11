@@ -262,20 +262,20 @@ const Profile = () => {
                   />
                 </Link>
 
-                <Link to={`/SpecificListing/${listing._id}`}>
-                  <p className="text-blue-950 text-lg font-semibold cursor-pointer hover:underline">
+                <Link  to={`/SpecificListing/${listing._id}`}>
+                  <p className="text-blue-950 text-lg font-semibold cursor-pointer hover:underline text-center max-sm:text-sm">
                     {listing.name}
                   </p>
                 </Link>
                 <div className="flex flex-col">
                   <button
                     onClick={() => handleListingDelete(listing._id)}
-                    className="text-red-500 hover:underline"
+                    className="text-red-500 hover:underline max-sm:text-xs"
                   >
                     Delete
                   </button>
                   <Link to={`/update-listing/${listing._id}`}>
-                    <button className="text-green-500 hover:underline">
+                    <button className="text-green-500 hover:underline max-sm:text-xs">
                       Edit
                     </button>
                   </Link>
