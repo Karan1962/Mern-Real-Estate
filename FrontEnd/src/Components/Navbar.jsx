@@ -27,7 +27,7 @@ const Navbar = () => {
       <nav className="flex px-3 justify-between items-center max-w-6xl m-auto h-[10vh]">
         <div className="font-bold text-lg text-slate-700 sm:text-2xl">
           <Link to="/">
-            <span className="text-neutral-400 ">Only</span>Estate
+            <span className="text-neutral-400 ">Karan</span>Estate
           </Link>
         </div>
 

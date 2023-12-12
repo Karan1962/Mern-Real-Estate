@@ -5,7 +5,7 @@ const About = () => {
     <div className="w-full">
       <div className="max-w-6xl m-auto px-3 pt-24">
         <h1 className="text-3xl font-bold text-slate-700 ">
-          About Only Estate
+          About Karan Estate
         </h1>
         <p className="py-4 text-gray-600">
           Only Estate is a leading real estate agency that specializes in
