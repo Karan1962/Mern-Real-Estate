@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaBath, FaBed } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const Search = () => {
   const navigate = useNavigate();
   const [listings, setListings] = useState([]);
@@ -48,12 +49,15 @@ const Search = () => {
     }
 
     const fetchListing = async () => {
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await axios.get(`/api/listing/listings?${searchQuery}`);
       const data = res.data;
       console.log(data.length);
       if (data.length > 8) {
         setShowMore(true);
+      } else {
+        setShowMore(false);
       }
       setListings(data);
     };
@@ -125,7 +129,7 @@ const Search = () => {
   };
   return (
     <div className=" flex max-md:flex-col max-w-7xl m-auto ">
-      <div className="border-r-2  pt-16 max-md:border-b-2 w-[48%] max-md:w-full max-md:flex max-md:justify-around ">
+      <div className="border-r-2  pt-16 max-md:border-b-2 w-[40%] max-md:w-full max-md:flex max-md:justify-around ">
         <form
           onSubmit={handleSubmit}
           className="py-7 px-4 flex flex-col gap-7 max-md:pt-8 "
@@ -217,9 +221,10 @@ const Search = () => {
           <div className="flex gap-6 flex-wrap ">
             {listings.map((listing) => {
               return (
-                <div
+                <Link
+                  to={`/SpecificListing/${listing._id}`}
                   key={listing._id}
-                  className="w-full sm:w-[320px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
+                  className="w-full sm:w-[270px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
                 >
                   <div className="w-full h-[50%] flex overflow-hidden rounded-md rounded-b-none">
                     <img
@@ -257,7 +262,7 @@ const Search = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

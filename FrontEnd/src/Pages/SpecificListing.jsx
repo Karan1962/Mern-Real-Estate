@@ -61,7 +61,7 @@ export default function SpecificListing() {
       {listing && !loading && !error && (
         <div>
           <Swiper navigation>
-            {listing.imageUrls.map((url) => (
+            {listing?.imageUrls?.map((url) => (
               <SwiperSlide key={url}>
                 <div
                   className="h-[550px]"
@@ -94,8 +94,8 @@ export default function SpecificListing() {
             <p className="text-2xl font-semibold">
               {listing.name} - ${" "}
               {listing.offer
-                ? listing.discountPrice.toLocaleString("en-US")
-                : listing.regularPrice.toLocaleString("en-US")}
+                ? listing?.discountPrice?.toLocaleString("en-US")
+                : listing?.regularPrice?.toLocaleString("en-US")}
               {listing.type === "rent" && " / month"}
             </p>
             <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
