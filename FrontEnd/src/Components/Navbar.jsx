@@ -23,7 +23,7 @@ const Navbar = () => {
     }
   }, [location.search]);
   return (
-    <header className="bg-slate-200 shadow-sm shadow-slate-400 fixed w-full z-30">
+    <header className="bg-slate-200 shadow-sm shadow-slate-400 fixed w-full max-h-[75px] z-30">
       <nav className="flex px-3 justify-between items-center max-w-6xl m-auto h-[10vh]">
         <div className="font-bold text-lg text-slate-700 sm:text-2xl">
           <Link to="/">
@@ -33,7 +33,7 @@ const Navbar = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="flex h-[6vh] items-center justify-center w-28 sm:w-72 bg-white rounded-md"
+          className="flex max-h-[30px] items-center justify-center w-28 sm:w-72 bg-white rounded-md"
         >
           <input
             type="text"

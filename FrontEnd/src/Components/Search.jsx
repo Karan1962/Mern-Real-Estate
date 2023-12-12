@@ -145,53 +145,67 @@ const Search = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-3 flex-wrap items-center">
             <label className="font-semibold">Type : </label>
-            <input
-              type="checkbox"
-              id="all"
-              onChange={handleChange}
-              checked={formData.type === "all"}
-            />
-            <span>Rent & Sale</span>
-            <input
-              type="checkbox"
-              id="rent"
-              onChange={handleChange}
-              checked={formData.type === "rent"}
-            />
-            <span>Rent</span>
-            <input
-              type="checkbox"
-              id="sale"
-              onChange={handleChange}
-              checked={formData.type === "sale"}
-            />
-            <span>Sale</span>
-            <input
-              type="checkbox"
-              id="offer"
-              onChange={handleChange}
-              checked={formData.offer}
-            />
-            <span>offer</span>
+            <div className="flex gap-1">
+              <input
+                type="checkbox"
+                id="all"
+                onChange={handleChange}
+                checked={formData.type === "all"}
+              />
+              <span>Rent & Sale</span>
+            </div>
+            <div className="flex gap-1">
+              <input
+                type="checkbox"
+                id="rent"
+                onChange={handleChange}
+                checked={formData.type === "rent"}
+              />
+              <span>Rent</span>
+            </div>
+
+            <div className="flex gap-1">
+              <input
+                type="checkbox"
+                id="sale"
+                onChange={handleChange}
+                checked={formData.type === "sale"}
+              />
+              <span>Sale</span>
+            </div>
+
+            <div className="flex gap-1">
+              <input
+                type="checkbox"
+                id="offer"
+                onChange={handleChange}
+                checked={formData.offer}
+              />
+              <span>offer</span>
+            </div>
           </div>
           <div className="flex gap-2 flex-wrap">
             <label className="font-semibold">Amenities : </label>
-            <input
-              type="checkbox"
-              id="parking"
-              onChange={handleChange}
-              checked={formData.parking}
-            />
-            <span>parking</span>
-            <input
-              type="checkbox"
-              id="furnished"
-              onChange={handleChange}
-              checked={formData.furnished}
-            />
-            <span>Furnished</span>
+            <div className="flex gap-1  items-center">
+              <input
+                type="checkbox"
+                id="parking"
+                onChange={handleChange}
+                checked={formData.parking}
+              />
+              <span>parking</span>
+            </div>
+            <div className="flex gap-1 items-center">
+              <input
+                type="checkbox"
+                id="furnished"
+                onChange={handleChange}
+                checked={formData.furnished}
+              />
+              <span>Furnished</span>
+            </div>
           </div>
           <div>
             <label className="font-semibold">Sort : </label>
