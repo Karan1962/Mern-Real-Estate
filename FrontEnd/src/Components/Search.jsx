@@ -6,7 +6,7 @@ import { FaBath, FaBed } from "react-icons/fa";
 const Search = () => {
   const navigate = useNavigate();
   const [listings, setListings] = useState([]);
-  console.log(listings);
+  const [showMore, setShowMore] = useState(false);
   const [formData, setFormData] = useState({
     searchTerm: "",
     type: "all",
@@ -51,6 +51,10 @@ const Search = () => {
       const searchQuery = urlParams.toString();
       const res = await axios.get(`/api/listing/listings?${searchQuery}`);
       const data = res.data;
+      console.log(data.length);
+      if (data.length > 8) {
+        setShowMore(true);
+      }
       setListings(data);
     };
 
@@ -103,6 +107,21 @@ const Search = () => {
     urlParams.set("order", formData.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const handleShowMore = async (e) => {
+    e.preventDefault();
+    const nOfListings = listings.length;
+    const startIndex = nOfListings;
+    const urlParams = new URLSearchParams();
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await axios.get(`/api/listing/listings?${searchQuery}`);
+    const data = res.data;
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
   };
   return (
     <div className=" flex max-md:flex-col max-w-7xl m-auto ">
@@ -198,7 +217,10 @@ const Search = () => {
           <div className="flex gap-6 flex-wrap ">
             {listings.map((listing) => {
               return (
-                <div className="w-full sm:w-[320px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300">
+                <div
+                  key={listing._id}
+                  className="w-full sm:w-[320px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
+                >
                   <div className="w-full h-[50%] flex overflow-hidden rounded-md rounded-b-none">
                     <img
                       src={listing.imageUrls[0]}
@@ -219,7 +241,7 @@ const Search = () => {
                     </div>
                     <div className="flex gap-5 py-2">
                       <div className="font-bold text-black text-sm flex gap-2 items-center">
-                        <FaBed className="text-green-700"/>
+                        <FaBed className="text-green-700" />
                         {listing?.bedrooms}{" "}
                         {listing?.bedrooms > 1 ? "Beds" : "bed"}
                       </div>
@@ -239,6 +261,14 @@ const Search = () => {
               );
             })}
           </div>
+        )}
+        {showMore && (
+          <button
+            onClick={handleShowMore}
+            className="text-green-600 text-center max-sm:w-full p-3 w-[80%] hover:underline"
+          >
+            Show More
+          </button>
         )}
       </div>
     </div>
