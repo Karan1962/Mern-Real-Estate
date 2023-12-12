@@ -9,7 +9,7 @@ const Listings = ({ listings, type, desc ,query}) => {
       <div className="py-6 px-3 max-w-6xl m-auto ">
         <div className="text-lg text-gray-600 font-bold">{type}</div>
         <Link to={`/search?${query}`} className="text-blue-800 hover:underline pb-2">{desc}</Link>
-        <div className="flex gap-4 ">
+        <div className="flex gap-4 flex-wrap">
           {listings.map((listing) => {
             return (
               <Link
