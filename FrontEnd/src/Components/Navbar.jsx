@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FaHome } from "react-icons/fa";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,9 +26,14 @@ const Navbar = () => {
   return (
     <header className="bg-slate-200 shadow-sm shadow-slate-400 fixed w-full max-h-[75px] z-30">
       <nav className="flex px-3 justify-between items-center max-w-6xl m-auto h-[10vh]">
-        <div className="font-bold text-lg text-slate-700 sm:text-2xl">
+        <div className="font-bold text-lg text-slate-700 sm:text-2xl max-sm:hidden">
           <Link to="/">
             <span className="text-neutral-400 ">Karan</span>Estate
+          </Link>
+        </div>
+        <div className=" sm:hidden">
+          <Link to="/">
+            <FaHome/>
           </Link>
         </div>
 
