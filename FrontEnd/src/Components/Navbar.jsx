@@ -25,7 +25,7 @@ const Navbar = () => {
   }, [location.search]);
   return (
     <header className="bg-slate-200 shadow-sm shadow-slate-400 fixed w-full max-h-[75px] z-30">
-      <nav className="flex px-3 justify-between items-center max-w-6xl m-auto h-[10vh]">
+      <nav className="flex px-3 justify-between items-center max-w-6xl m-auto max-h-full py-3">
         <div className="font-bold text-lg text-slate-700 sm:text-2xl max-sm:hidden">
           <Link to="/">
             <span className="text-neutral-400 ">Karan</span>Estate
