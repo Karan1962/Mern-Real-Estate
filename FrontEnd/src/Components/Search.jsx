@@ -231,6 +231,7 @@ const Search = () => {
         <h1 className="font-semibold text-2xl text-slate-800 p-7 text-center">
           Listing result :
         </h1>
+        {listings.length === 0 &&( <div className="text-3xl font-semibold text-violet-950 text-center">No listings found !</div>)}
         {listings && (
           <div className="flex gap-6 flex-wrap ">
             {listings.map((listing) => {
