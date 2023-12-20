@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
 const Listings = ({ listings, type, desc ,query}) => {
   return (
     <>
-      <div className="py-6 px-3 max-w-6xl m-auto ">
-        <div className="text-lg text-gray-600 font-bold">{type}</div>
-        <Link to={`/search?${query}`} className="text-blue-800 hover:underline pb-2">{desc}</Link>
-        <div className="flex gap-4 flex-wrap">
+      <div className="pt-16 px-3 max-w-6xl m-auto ">
+        <div className="text-2xl text-gray-600 font-semibold">{type}</div>
+        <Link to={`/search?${query}`} className="text-blue-900 text-sm hover:underline">{desc}</Link>
+        <div className="flex gap-4 flex-wrap pt-2">
           {listings.map((listing) => {
             return (
               <Link
                 to={`/SpecificListing/${listing._id}`}
                 key={listing._id}
-                className="w-full sm:w-[270px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
+                className="w-full sm:w-[320px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
               >
                 <div className="w-full h-[50%] flex overflow-hidden rounded-md rounded-b-none">
                   <img

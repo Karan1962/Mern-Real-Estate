@@ -55,17 +55,17 @@ const Navbar = () => {
 
         <div className="flex justify-evenly sm:w-[30%] text-xs sm:text-base sm:font-normal">
           <Link
-            to="/About"
+            to="/Home"
             className="hidden sm:inline text-slate-700 hover:text-neutral-400 "
           >
-            About
+            Home
           </Link>
           {currentUser ? null : (
             <Link
-              to="/signup"
+              to="/About"
               className="hidden sm:inline text-slate-700 hover:text-neutral-400 "
             >
-              Sign Up
+              About
             </Link>
           )}
 
