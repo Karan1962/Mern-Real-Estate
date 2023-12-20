@@ -18,7 +18,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const searchTermFromUrl = urlParams.get('searchTerm');
+    const searchTermFromUrl = urlParams.get("searchTerm");
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);
     }
@@ -33,7 +33,7 @@ const Navbar = () => {
         </div>
         <div className=" sm:hidden">
           <Link to="/">
-            <FaHome/>
+            <FaHome />
           </Link>
         </div>
 
@@ -48,26 +48,24 @@ const Navbar = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button  className="flex justify-center items-center w-[30%] sm:w-[15%] cursor-pointer">
+          <button className="flex justify-center items-center w-[30%] sm:w-[15%] cursor-pointer">
             <FaSearch />
           </button>
         </form>
 
-        <div className="flex justify-evenly sm:w-[30%] text-xs sm:text-base sm:font-normal">
+        <div className="flex gap-6 justify-evenly sm:w-[30%] text-xs sm:text-base sm:font-normal items-center">
           <Link
             to="/Home"
             className="hidden sm:inline text-slate-700 hover:text-neutral-400 "
           >
             Home
           </Link>
-          {currentUser ? null : (
-            <Link
-              to="/About"
-              className="hidden sm:inline text-slate-700 hover:text-neutral-400 "
-            >
-              About
-            </Link>
-          )}
+          <Link
+            to="/About"
+            className="inline text-slate-700 hover:text-neutral-400 "
+          >
+            About
+          </Link>
 
           <Link
             to="/Profile"

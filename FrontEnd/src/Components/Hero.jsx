@@ -9,7 +9,7 @@ const Hero = () => {
         place with ease
       </div>
       <div className="text-base text-gray-400 py-6 ">
-        OnlyEstate will help you find your home fast, easy and comfortable.
+        KaranEstate will help you find your home fast, easy and comfortable.
         <br />
         Our expert support are always available.
       </div>

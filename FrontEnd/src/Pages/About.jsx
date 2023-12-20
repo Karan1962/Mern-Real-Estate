@@ -8,7 +8,7 @@ const About = () => {
           About Karan Estate
         </h1>
         <p className="py-4 text-gray-600">
-          Only Estate is a leading real estate agency that specializes in
+          Karan Estate is a leading real estate agency that specializes in
           helping clients buy, sell, and rent properties in the most desirable
           neighborhoods. Our team of experienced agents is dedicated to
           providing exceptional service and making the buying and selling
