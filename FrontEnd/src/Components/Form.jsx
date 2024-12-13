@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signItUp } from "../FormFunctions/signUp";
 import { logItUp } from "../FormFunctions/logItUp";
@@ -19,6 +19,10 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
   const [userName, setUserName] = useState("");
   const [passWord, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    dispatch(noError());
+  }, []);
 
   const navigate = useNavigate();
 
@@ -50,10 +54,10 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
     dispatch(loading());
     const response = await logItUp(userName, passWord);
     if (response.status === 201) {
-      console.log("user exist :",response.data)
-      dispatch(currentUser(response.data))
+      console.log("user exist :", response.data);
+      dispatch(currentUser(response.data));
       dispatch(noLoading());
-      dispatch(noError())
+      dispatch(noError());
       navigate("/");
     }
     if (response.data.status === 404) {
