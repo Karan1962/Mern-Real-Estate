@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Hero } from "../Components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
@@ -31,31 +31,38 @@ const Home = () => {
         const res = await axios.get(`/api/listing/listings?type=rent&limit=4`);
         const data = res.data;
         setRentalListing(data);
-      } catch (err) {}
+      } catch (err) {
+        alert("something went wrong");
+      }
     };
     const getSaleListings = async () => {
       try {
         const res = await axios.get(`/api/listing/listings?type=sale&limit=4`);
         const data = res.data;
         setSaleListing(data);
-      } catch (err) {}
+      } catch (err) {
+        alert("something went wrong");
+      }
     };
     getOfferListings();
     getRentalListings();
     getSaleListings();
-    setLoading(false)
-  
+    setLoading(false);
   }, []);
 
   return (
     <>
       <Hero />
-      {loading && <div className="text-6xl font-bold text-center text-gray-400 p-20">loading properties ....</div>}
+      {loading && (
+        <div className="text-6xl font-bold text-center text-gray-400 p-20">
+          loading properties ....
+        </div>
+      )}
       {!loading && (
         <>
           {offerListing && offerListing.length > 0 && (
-            <div className="max-w-7xl m-auto ">
-              <Swiper navigation>
+            <div className=" m-auto dark:bg-[#0f1015] w-screen ">
+              <Swiper navigation className="max-w-7xl">
                 {offerListing.map((listing) => (
                   <SwiperSlide key={listing.imageUrls[0]}>
                     <Link to={`/SpecificListing/${listing._id}`}>
@@ -73,30 +80,36 @@ const Home = () => {
             </div>
           )}
           {offerListing && (
-            <Listings
-              listings={offerListing}
-              query="offer=true"
-              type="Recent Offers"
-              desc="Show More Offers"
-            />
+            <section className="w-screen dark:bg-[#1d1f2a] pb-10 ">
+              <Listings
+                listings={offerListing}
+                query="offer=true"
+                type="Recent Offers"
+                desc="Show More Offers"
+              />
+            </section>
           )}
 
           {rentalListing && (
-            <Listings
-              listings={rentalListing}
-              query="type=rent"
-              type="Recent Places For Rent"
-              desc="Show More Places For Rent"
-            />
+            <section className="w-screen dark:bg-[#0f1015] pb-10 ">
+              <Listings
+                listings={rentalListing}
+                query="type=rent"
+                type="Recent Places For Rent"
+                desc="Show More Places For Rent"
+              />
+            </section>
           )}
 
           {saleListing && (
-            <Listings
-              listings={saleListing}
-              query="type=sale"
-              type="Recent Places For Sale"
-              desc="Show More Places For Sale"
-            />
+            <section className="w-screen dark:bg-[#1d1f2a] pb-10 ">
+              <Listings
+                listings={saleListing}
+                query="type=sale"
+                type="Recent Places For Sale"
+                desc="Show More Places For Sale"
+              />
+            </section>
           )}
         </>
       )}

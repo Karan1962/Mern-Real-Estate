@@ -74,7 +74,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
   return (
     <>
       <div className="flex justify-center gap-3 items-center w-full sm:max-w-xl flex-col m-auto h-[100vh]">
-        <h2 className="text-4xl font-bold text-gray-600">
+        <h2 className="text-4xl font-bold text-gray-600 dark:text-[#ffffff]">
           {Login ? "Sign Up" : "Login"}
         </h2>
         <form className="flex flex-col gap-5 w-[80%] sm:w-full">
@@ -84,7 +84,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
             name="userName"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
-            className="w-full sm:w-[60%] m-auto bg-white focus:outline-gray-200 rounded-md p-3"
+            className="w-full sm:w-[60%] m-auto bg-white dark:text-[white] dark:focus:outline-[#b1b1b1] focus:outline-gray-200 rounded-md dark:bg-[#9a9a9a72] p-3"
           />
           {Login ? (
             <input
@@ -93,7 +93,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
               value={email}
               name="email"
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full sm:w-[60%] m-auto focus:outline-gray-200 rounded-md p-3"
+              className="w-full sm:w-[60%] m-auto  dark:text-[white] dark:focus:outline-[#b1b1b1] focus:outline-gray-200 rounded-md dark:bg-[#9a9a9a72] p-3"
             />
           ) : null}
           <input
@@ -102,7 +102,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
             value={passWord}
             name="password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full sm:w-[60%] m-auto  focus:outline-gray-200 rounded-md p-3"
+            className="w-full sm:w-[60%] m-auto  focus:outline-gray-200 rounded-md p-3  dark:focus:outline-[#b1b1b1] dark:text-[white] dark:bg-[#9a9a9a72]"
           />
           <p className="text-center">
             {user.userNameError ? (
@@ -118,7 +118,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
               disabled={user.loading}
               type="submit"
               onClick={handleSignUp}
-              className="w-full sm:w-[60%] p-3 text-white bg-sky-950 m-auto rounded-md font-bold hover:bg-sky-900"
+              className="w-full sm:w-[60%] p-3 text-white bg-sky-950  m-auto rounded-md font-bold hover:bg-sky-900"
             >
               {user.loading ? "LOADING..." : "SIGN UP"}
             </button>
@@ -137,7 +137,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
         </form>
         {Login ? (
           <div className="flex flex-col sm:flex-row sm:gap-3">
-            <h3>{AlreadyUser}</h3>
+            <h3 className="dark:text-[#afa9a9]">{AlreadyUser}</h3>
             <p
               onClick={() => goTo("Login")}
               className="text-sky-600 hover:underline cursor-pointer text-center"
@@ -147,7 +147,7 @@ const Form = ({ AlreadyUser, NewUser, Login, signUp }) => {
           </div>
         ) : (
           <div className="flex flex-col sm:flex-row sm:gap-3">
-            <h3 className="text-center">{NewUser}</h3>
+            <h3 className="text-center dark:text-[#afa9a9]">{NewUser}</h3>
             <p
               onClick={() => goTo("Signup")}
               className="text-sky-600 hover:underline cursor-pointer text-center"
