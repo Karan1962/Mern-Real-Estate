@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -152,7 +153,9 @@ const Profile = () => {
   return (
     <>
       <div className="pt-16 p-2 max-w-lg m-auto">
-        <h1 className="text-3xl font-bold text-center py-4">Profile</h1>
+        <h1 className="text-3xl font-bold text-center py-4 dark:text-[white]">
+          Profile
+        </h1>
         <input
           onChange={(e) => setFile(e.target.files[0])}
           type="file"
@@ -179,7 +182,7 @@ const Profile = () => {
         </p>
         <form className="flex flex-col gap-3 pt-3">
           <input
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg dark:bg-[#9a9a9a72] dark:text-[white]"
             placeholder="username"
             id="userName"
             type="text"
@@ -187,7 +190,7 @@ const Profile = () => {
             onChange={handleChange}
           />
           <input
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg dark:bg-[#9a9a9a72] dark:text-[white]"
             id="email"
             placeholder="email"
             type="text"
@@ -195,7 +198,7 @@ const Profile = () => {
             onChange={handleChange}
           />
           <input
-            className="p-3 rounded-lg"
+            className="p-3 rounded-lg dark:bg-[#9a9a9a72] dark:text-[white]"
             placeholder="password"
             type="password"
             id="password"
@@ -238,7 +241,7 @@ const Profile = () => {
           <p className="text-green-500">User Updated Successfully</p>
         ) : null}
         {listings.length > 0 && (
-          <div className="text-blue-950 font-bold text-2xl text-center p-3">
+          <div className="text-blue-950 dark:text-blue-900 font-bold text-2xl text-center p-3">
             Your Listings
           </div>
         )}
@@ -262,8 +265,8 @@ const Profile = () => {
                   />
                 </Link>
 
-                <Link  to={`/SpecificListing/${listing._id}`}>
-                  <p className="text-blue-950 text-lg font-semibold cursor-pointer hover:underline text-center max-sm:text-sm">
+                <Link to={`/SpecificListing/${listing._id}`}>
+                  <p className="text-blue-950 dark:text-blue-900 text-lg font-semibold cursor-pointer hover:underline text-center max-sm:text-sm">
                     {listing.name}
                   </p>
                 </Link>

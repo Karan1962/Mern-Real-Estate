@@ -52,7 +52,7 @@ export default function SpecificListing() {
   }, [params.listingId]);
 
   return (
-    <main className="pt-14">
+    <main className="pt-14 dark:text-[white] pb-10">
       {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
       {error && (
         <p className="text-center my-7 text-2xl">Something went wrong!</p>
@@ -97,7 +97,7 @@ export default function SpecificListing() {
                 : listing?.regularPrice?.toLocaleString("en-US")}
               {listing.type === "rent" && " / month"}
             </p>
-            <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
+            <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm dark:text-[#e4e4e4]">
               <FaMapMarkerAlt className="text-green-700" />
               {listing.address}
             </p>
@@ -111,11 +111,13 @@ export default function SpecificListing() {
                 </p>
               )}
             </div>
-            <p className="text-slate-800">
-              <span className="font-semibold text-black">Description - </span>
+            <p className="text-slate-800 dark:text-[#969696]">
+              <span className="font-semibold text-black dark:text-[#eaeaea]">
+                Description -{" "}
+              </span>
               {listing.description}
             </p>
-            <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
+            <ul className="text-green-900 dark:text-[#2c872c] font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaBed className="text-lg" />
                 {listing.bedrooms > 1
@@ -140,7 +142,7 @@ export default function SpecificListing() {
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button
                 onClick={() => setContact(true)}
-                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3 dark:bg-[#2d2d5c]"
               >
                 Contact landlord
               </button>

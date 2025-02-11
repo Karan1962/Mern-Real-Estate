@@ -7,6 +7,12 @@ body {
 .dark_theme {
   filter: sepia(100%) brightness(600%);
 }
+
+@layer utilities {
+  .dark_input {
+    @apply dark:bg-[#9a9a9a72] dark:text-white;
+  }
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

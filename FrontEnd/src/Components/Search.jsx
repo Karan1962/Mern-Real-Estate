@@ -128,25 +128,27 @@ const Search = () => {
     setListings([...listings, ...data]);
   };
   return (
-    <div className=" flex max-md:flex-col max-w-7xl m-auto ">
+    <div className=" flex max-md:flex-col max-w-7xl m-auto dark:text-[#dfdfdf]">
       <div className="border-r-2  pt-16 max-md:border-b-2 w-[40%] max-md:w-full max-md:flex max-md:justify-around ">
         <form
           onSubmit={handleSubmit}
           className="py-7 px-4 flex flex-col gap-7 max-md:pt-8 "
         >
           <div className="flex gap-2 flex-wrap items-center">
-            <label className="font-semibold whitespace-nowrap">Search : </label>
+            <label className="font-semibold whitespace-nowrap dark:text-white">
+              Search :{" "}
+            </label>
             <input
               type="text"
               placeholder="search"
-              className="rounded-md p-1 max-md:w-full"
+              className="rounded-md p-1 max-md:w-full dark_input "
               id="searchTerm"
               value={formData.searchTerm}
               onChange={handleChange}
             />
           </div>
           <div className="flex gap-3 flex-wrap items-center">
-            <label className="font-semibold">Type : </label>
+            <label className="font-semibold dark:text-white">Type : </label>
             <div className="flex gap-1">
               <input
                 type="checkbox"
@@ -187,7 +189,9 @@ const Search = () => {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap">
-            <label className="font-semibold">Amenities : </label>
+            <label className="font-semibold dark:text-white">
+              Amenities :{" "}
+            </label>
             <div className="flex gap-1  items-center">
               <input
                 type="checkbox"
@@ -208,11 +212,11 @@ const Search = () => {
             </div>
           </div>
           <div>
-            <label className="font-semibold">Sort : </label>
+            <label className="font-semibold dark:text-white">Sort : </label>
             <select
               name="categories"
               id="sort_order"
-              className="rounded-md bg-gray-300"
+              className="rounded-md bg-gray-300 p-1 dark:bg-[#39395f] dark:text-[#ffffff]"
               onChange={handleChange}
               defaultValue={"created_at_desc"}
             >
@@ -228,10 +232,14 @@ const Search = () => {
         </form>
       </div>
       <div className="pt-16 max-md:p-2 w-full p-3 md:h-fit border-l">
-        <h1 className="font-semibold text-2xl text-slate-800 p-7 text-center">
+        <h1 className="font-semibold text-2xl text-slate-800 p-7 text-center dark:text-[#e4e4e4]">
           Listing result :
         </h1>
-        {listings.length === 0 &&( <div className="text-3xl font-semibold text-violet-950 text-center">No listings found !</div>)}
+        {listings.length === 0 && (
+          <div className="text-3xl font-semibold text-violet-950 text-center">
+            No listings found !
+          </div>
+        )}
         {listings && (
           <div className="flex gap-6 flex-wrap ">
             {listings.map((listing) => {
@@ -239,7 +247,7 @@ const Search = () => {
                 <Link
                   to={`/SpecificListing/${listing._id}`}
                   key={listing._id}
-                  className="w-full sm:w-[270px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300"
+                  className="w-full sm:w-[270px] max-sm:h-fit max-sm:pb-2 sm:h-[400px] bg-[#ffff] rounded-md shadow-sm hover:shadow-md shadow-neutral-300 dark:text-[#d5d5d5] dark:bg-[#131222] dark:shadow-[#000000]"
                 >
                   <div className="w-full h-[50%] flex overflow-hidden rounded-md rounded-b-none">
                     <img
@@ -260,19 +268,19 @@ const Search = () => {
                       {listing?.description}
                     </div>
                     <div className="flex gap-5 py-2">
-                      <div className="font-bold text-black text-sm flex gap-2 items-center">
-                        <FaBed className="text-green-700" />
+                      <div className="font-bold text-black text-sm flex gap-2 items-center dark:text-[#356935]">
+                        <FaBed className="text-green-700 " />
                         {listing?.bedrooms}{" "}
                         {listing?.bedrooms > 1 ? "Beds" : "bed"}
                       </div>
-                      <div className="font-bold text-black text-sm flex gap-2 items-center">
+                      <div className="font-bold text-black text-sm flex gap-2 items-center dark:text-red-900">
                         <FaBath className="text-red-900" />
                         {listing?.bathrooms}{" "}
                         {listing?.bathrooms > 1 ? "Baths" : "Bath"}
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <div className="font-bold text-gray-600 text-lg ">
+                      <div className="font-bold text-gray-600 text-lg dark:text-[#d1d1d1]">
                         {listing?.regularPrice - listing?.discountPrice}$ /Month
                       </div>
                     </div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getDownloadURL,
@@ -63,6 +63,7 @@ export default function Listing() {
         .catch((err) => {
           setImageUploadError("Image upload failed (2mb max per image)");
           setUploading(false);
+          alert(err);
         });
     } else {
       setUploading(false);
@@ -94,9 +95,9 @@ export default function Listing() {
           });
         }
       );
-      setError(false)
+      setError(false);
     });
-    };
+  };
 
   // --- Handles Image deletion of uploaded Images.
 
@@ -171,7 +172,7 @@ export default function Listing() {
   };
   return (
     <main className="p-3 pt-14 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold text-gray-600 text-center my-10">
+      <h1 className="text-4xl font-bold text-gray-600 text-center my-10 dark:text-[white]">
         Create a Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
@@ -179,7 +180,7 @@ export default function Listing() {
           <input
             type="text"
             placeholder="Name"
-            className="border p-3 rounded-lg"
+            className="border p-3 rounded-lg dark_input"
             id="name"
             name="name"
             maxLength="62"
@@ -192,7 +193,7 @@ export default function Listing() {
             type="text"
             name="description"
             placeholder="Description"
-            className="border p-3 rounded-lg"
+            className="border p-3 rounded-lg dark_input"
             id="description"
             required
             onChange={handleChange}
@@ -201,19 +202,19 @@ export default function Listing() {
           <input
             type="text"
             placeholder="Address"
-            className="border p-3 rounded-lg"
+            className="border p-3 rounded-lg dark_input"
             name="address"
             id="address"
             required
             onChange={handleChange}
             value={formData.address}
           />
-          <div className="flex gap-6 flex-wrap">
+          <div className="flex gap-6 flex-wrap dark:text-[#e5e5e5]">
             <div className="flex gap-2">
               <input
                 type="checkbox"
                 id="sale"
-                className="w-5"
+                className="w-5 dark_input"
                 name="sale"
                 onChange={handleChange}
                 checked={formData.type == "sale"}
@@ -224,7 +225,7 @@ export default function Listing() {
               <input
                 type="checkbox"
                 id="rent"
-                className="w-5"
+                className="w-5 dark_input"
                 name="rent"
                 onChange={handleChange}
                 checked={formData.type == "rent"}
@@ -235,18 +236,18 @@ export default function Listing() {
               <input
                 type="checkbox"
                 id="parking"
-                className="w-5"
+                className="w-5 dark_input"
                 name="parking"
                 onChange={handleChange}
                 checked={formData.parking}
               />
               <span>Parking spot</span>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 ">
               <input
                 type="checkbox"
                 id="furnished"
-                className="w-5"
+                className="w-5 dark_input"
                 name="furnished"
                 onChange={handleChange}
                 checked={formData.furnished}
@@ -257,7 +258,7 @@ export default function Listing() {
               <input
                 type="checkbox"
                 id="offer"
-                className="w-5"
+                className="w-5 dark_input"
                 name="offer"
                 onChange={handleChange}
                 checked={formData.offer}
@@ -265,7 +266,7 @@ export default function Listing() {
               <span>Offer</span>
             </div>
           </div>
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-6 dark:text-[#e5e5e5]">
             <div className="flex items-center gap-2">
               <input
                 type="number"
@@ -274,7 +275,7 @@ export default function Listing() {
                 max="10"
                 required
                 onChange={handleChange}
-                className="p-3 border border-gray-300 rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg dark_input"
                 name="bedrooms"
                 value={formData.bedrooms}
               />
@@ -288,7 +289,7 @@ export default function Listing() {
                 max="10"
                 required
                 onChange={handleChange}
-                className="p-3 border border-gray-300 rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg dark_input"
                 name="bathrooms"
                 value={formData.bathrooms}
               />
@@ -302,7 +303,7 @@ export default function Listing() {
                 max="10000000"
                 required
                 onChange={handleChange}
-                className="p-3 border border-gray-300 rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg dark_input"
                 name="regularPrice"
                 value={formData.regularPrice}
               />
@@ -321,7 +322,7 @@ export default function Listing() {
                 max="10000000"
                 required
                 onChange={handleChange}
-                className="p-3 border border-gray-300 rounded-lg"
+                className="p-3 border border-gray-300 rounded-lg dark_input"
                 name="discountedPrice"
                 value={formData.discountPrice}
               />
@@ -333,16 +334,16 @@ export default function Listing() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col flex-1 gap-4">
+        <div className="flex flex-col flex-1 gap-4 dark:text-[#ffffff]">
           <p className="font-semibold">
             Images:
-            <span className="font-normal text-gray-600 ml-2">
+            <span className="font-normal text-gray-600 ml-2 dark:text-[#3ea632]">
               The first image will be the cover (max 6)
             </span>
           </p>
           <div className="flex gap-4 max-sm:flex-col">
             <input
-              className="p-3 border border-gray-300 rounded w-full"
+              className="p-3 border border-gray-300 rounded w-full "
               type="file"
               id="images"
               accept="image/*"
@@ -387,7 +388,7 @@ export default function Listing() {
 
           <button
             disabled={uploading}
-            className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+            className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80 dark:bg-[#2b2b46]"
           >
             {loading ? "Creating..." : "Create listing"}
           </button>

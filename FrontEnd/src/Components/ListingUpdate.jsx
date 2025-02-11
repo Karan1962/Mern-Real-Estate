@@ -147,7 +147,7 @@ export default function ListingUpdate() {
 
   useEffect(() => {
     const fetchListing = async () => {
-      console.log(params.id)
+      console.log(params.id);
       try {
         const res = await axios.get(
           `/api/listing/getUpdateListing/${params.id}`
@@ -162,7 +162,7 @@ export default function ListingUpdate() {
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(params.id)
+    console.log(params.id);
 
     try {
       if (formData.imageUrls.length < 1)
@@ -176,7 +176,7 @@ export default function ListingUpdate() {
         userRef: currentUser._id,
       });
       setLoading(false);
-      console.log('listing updated')
+      console.log("listing updated");
       if (res.success === false) {
         setError(res.data.message);
       }
