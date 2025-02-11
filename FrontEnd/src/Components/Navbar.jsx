@@ -9,9 +9,9 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarTrigger,
-} from "@/components/ui/menubar.jsx";
+} from "@/Components/ui/Menubar";
 import { themes } from "@/constants";
-import { useTheme } from "@/context/ThemeProvide.jsx";
+import { useTheme } from "@/context/ThemeProvide";
 
 const Navbar = () => {
   const { mode, setMode } = useTheme();
