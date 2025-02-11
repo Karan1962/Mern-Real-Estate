@@ -9,7 +9,7 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarTrigger,
-} from "@/Components/ui/Menubar";
+} from "@/Components/ui/Menubar.jsx";
 import { themes } from "@/constants";
 import { useTheme } from "@/context/ThemeProvider";
 
