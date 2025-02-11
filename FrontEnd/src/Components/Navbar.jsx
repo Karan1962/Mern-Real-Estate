@@ -11,7 +11,7 @@ import {
   MenubarTrigger,
 } from "@/Components/ui/Menubar";
 import { themes } from "@/constants";
-import { useTheme } from "@/context/ThemeProvide";
+import { useTheme } from "@/context/ThemeProvider";
 
 const Navbar = () => {
   const { mode, setMode } = useTheme();
